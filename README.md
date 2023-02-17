@@ -1,5 +1,6 @@
 # vuestargram
 
+## vue3 study
 ## Project setup
 ```
 npm install
