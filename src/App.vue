@@ -11,6 +11,20 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
+  {{ myName }}
+  {{ name }}
+  {{ age }}
+  {{ likes }}
+
+  <h4>안녕 {{ $store.state.name }}</h4>
+  <button @click="$store.commit('changeName')">이름 변경!</button>
+  <h4>나이는 {{ $store.state.age }}살 이네요?</h4>
+  <button @click="increaseAge(10)">나이 증가!</button>
+  <div style="margin-bottom: 100px;"></div>
+
+  <!-- <p>{{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">더보기</button> -->
+
   <Container :postList="postList" :step="step" :uploadImage="uploadImage"
     :selectedFilter="selectedFilter" :postContent="postContent" 
     @changeContent="postContent=$event;" @changeStep="this.step = $event;" 
@@ -29,6 +43,7 @@
   import Container from './components/Container.vue';
   import postList from './assets/postList';
   import axios from 'axios';
+  import { mapMutations, mapState } from 'vuex';
 
   export default {
     name: 'App',
@@ -46,6 +61,7 @@
       Container,
     },
     methods: {
+      ...mapMutations(['setMore', 'clickLikes', 'increaseAge']),
       more() {
         axios.get(`https://codingapple1.github.io/vue/more${this.moreClickCount}.json`)
           .then(result=> {
@@ -79,6 +95,11 @@
       this.emitter.on('selectFilter', (filter)=> {
         this.selectedFilter = filter;
       });
+    },
+
+    computed: {
+      ...mapState(['name', 'age', 'likes']),
+      ...mapState({myName: 'name'}),
     },
   }
 </script>
