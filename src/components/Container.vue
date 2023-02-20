@@ -22,6 +22,10 @@
                 <textarea class="write-box" @keydown="$emit('changeContent', $event.target.value)">write!</textarea>
             </div>
         </div>
+
+        <div v-if="step===3">
+            <MyPage></MyPage>
+        </div>
     </div>
 </template>
 
@@ -29,6 +33,7 @@
     import Post from './Post.vue';
     import FilterBox from './FilterBox.vue';
     import filterList from '../assets/filterList';
+    import MyPage from './MyPage.vue';
     
     export default {
         name: 'isContainer',
@@ -40,6 +45,7 @@
         components: {
             Post,
             FilterBox,
+            MyPage,
         },
         props: {
             postList: [Object],
